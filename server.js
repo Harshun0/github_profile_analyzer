@@ -17,6 +17,22 @@ app.use(cors());
 app.use(express.json());
 app.use(rateLimiter);
 
+app.get('/', (_req, res) => {
+  res.json({
+    success: true,
+    message: 'GitHub Profile Analyzer API',
+    endpoints: {
+      health: 'GET /health',
+      analyze: 'POST /api/analyze/:username',
+      allProfiles: 'GET /api/profiles',
+      singleProfile: 'GET /api/profiles/:username',
+      profileRepos: 'GET /api/profiles/:username/repos',
+      deleteProfile: 'DELETE /api/profiles/:username',
+    },
+    example: 'POST /api/analyze/octocat',
+  });
+});
+
 app.get('/health', (_req, res) => {
   res.json({ success: true, message: 'GitHub Profile Analyzer API is running.' });
 });
